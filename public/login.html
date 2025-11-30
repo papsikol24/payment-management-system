@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Payment Management System - Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .login-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            padding: 30px;
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .login-header h1 {
+            color: #2c3e50;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        
+        .login-header p {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+        
+        .form-group input:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        
+        .user-type {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .user-option {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .user-option.active {
+            background-color: #3498db;
+            color: white;
+            border-color: #3498db;
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .login-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .forgot-password {
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        .forgot-password a {
+            color: #3498db;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .system-info {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            text-align: center;
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+
+        .demo-credentials {
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 12px;
+        }
+
+        .demo-credentials h4 {
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .credential-item {
+            margin-bottom: 5px;
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .signup-link a {
+            color: #3498db;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 10px;
+            text-align: center;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <h1>Online Payment Management System</h1>
+            <p>Asian Development Foundation College</p>
+        </div>
+        
+        <div class="user-type">
+            <div class="user-option active" data-role="student">Student/Parent</div>
+            <div class="user-option" data-role="admin">Administrator</div>
+            <div class="user-option" data-role="cashier">Cashier</div>
+        </div>
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            
+            <div id="errorMessage" class="error-message"></div>
+            
+            <button type="submit" class="login-btn">Login</button>
+        </form>
+        
+        <div class="signup-link">
+            <a href="signup.html">Don't have an account? Sign up</a>
+        </div>
+        
+        <div class="forgot-password">
+            <a href="#">Forgot Password?</a>
+        </div>
+
+        <div class="demo-credentials">
+            <h4>Demo Credentials:</h4>
+            <div class="credential-item"><strong>Student:</strong> student / student123</div>
+            <div class="credential-item"><strong>Admin:</strong> admin / admin123</div>
+            <div class="credential-item"><strong>Cashier:</strong> cashier / cashier123</div>
+        </div>
+        
+        <div class="system-info">
+            <p>Secure Payment Portal | Node.js & PHP Backend | MySQL Database</p>
+        </div>
+    </div>
+
+    <script>
+        // Default credentials
+        const defaultCredentials = {
+            student: { 
+                username: 'student', 
+                password: 'student123', 
+                role: 'student', 
+                full_name: 'Juan Dela Cruz', 
+                email: 'student@adfc.edu', 
+                student_id: '2023-00001',
+                balance: 15000
+            },
+            admin: { 
+                username: 'admin', 
+                password: 'admin123', 
+                role: 'admin', 
+                full_name: 'System Administrator', 
+                email: 'admin@adfc.edu' 
+            },
+            cashier: { 
+                username: 'cashier', 
+                password: 'cashier123', 
+                role: 'cashier', 
+                full_name: 'Maria Santos', 
+                email: 'cashier@adfc.edu' 
+            }
+        };
+
+        // User type selection
+        const userOptions = document.querySelectorAll('.user-option');
+        userOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                userOptions.forEach(opt => opt.classList.remove('active'));
+                option.classList.add('active');
+                
+                // Auto-fill credentials based on role
+                const role = option.getAttribute('data-role');
+                const creds = defaultCredentials[role];
+                document.getElementById('username').value = creds.username;
+                document.getElementById('password').value = creds.password;
+            });
+        });
+
+        // Auto-fill student credentials on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const creds = defaultCredentials.student;
+            document.getElementById('username').value = creds.username;
+            document.getElementById('password').value = creds.password;
+        });
+        
+        // Form submission
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // Clear previous error
+            errorMessage.style.display = 'none';
+            errorMessage.textContent = '';
+
+            try {
+                // Check against default credentials first
+                let authenticated = false;
+                let userData = null;
+
+                for (const [role, creds] of Object.entries(defaultCredentials)) {
+                    if (username === creds.username && password === creds.password) {
+                        authenticated = true;
+                        userData = creds;
+                        break;
+                    }
+                }
+
+                // If not found in default credentials, check localStorage
+                if (!authenticated) {
+                    const storedUsers = JSON.parse(localStorage.getItem('users') || '[]');
+                    const storedUser = storedUsers.find(u => u.username === username && u.password === password);
+                    
+                    if (storedUser) {
+                        authenticated = true;
+                        userData = storedUser;
+                    }
+                }
+
+                if (authenticated && userData) {
+                    // Save user data in localStorage
+                    localStorage.setItem('user', JSON.stringify(userData));
+                    // Redirect to dashboard
+                    window.location.href = 'dashboard.html';
+                } else {
+                    errorMessage.textContent = 'Invalid username or password. Please try again.';
+                    errorMessage.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                errorMessage.textContent = 'An error occurred during login. Please try again.';
+                errorMessage.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
